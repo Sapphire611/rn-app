@@ -10,6 +10,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    # 授予 GITHUB_TOKEN 写入权限
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -26,19 +30,8 @@ jobs:
       - name: Build Expo Web
         run: npm run build-web
 
-      - name: Configure Git
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
       - name: Deploy to GitHub Pages
-        run: |
-          cd dist
-          git init
-          git checkout -b main
-          git add -A
-          git commit -m 'deploy'
-          git remote add origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/Sapphire611/rn-app.git
-          git push --set-upstream origin main --force
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
