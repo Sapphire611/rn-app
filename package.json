@@ -22,6 +22,7 @@
   },
   "homepage": "https://sapphire611.github.io/rn-app",
   "scripts": {
+    "dev": "npx expo start --web",
     "start": "npx expo start",
     "android": "npx expo start --android",
     "ios": "npx expo start --ios",
