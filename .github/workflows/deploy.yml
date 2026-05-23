@@ -26,6 +26,11 @@ jobs:
       - name: Build Expo Web
         run: npm run build-web
 
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Deploy to GitHub Pages
         run: |
           cd dist
